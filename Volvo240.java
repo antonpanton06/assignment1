@@ -11,7 +11,7 @@ public class Volvo240 extends Car {
 
     public Volvo240() {
         super(4,100,0,Color.black,"Volvo240");
-        this.trimFactor = 0;
+        this.trimFactor = 1.25;
     }
 
     public double getTrimFactor(){
