@@ -14,7 +14,8 @@ With the new structure, you can simply create another subclass such as BMW for e
 public abstract class Car implements Movable {
 
     // The direction the car is facing, in order of clockwise
-    public enum Direction {NORTH, EAST, SOUTH, WEST}
+    public enum Direction {
+        NORTH, EAST, SOUTH, WEST }
 
     // The shared attributes of a car:
     private final int nrDoors; // Number of doors on the car
@@ -73,10 +74,12 @@ public abstract class Car implements Movable {
     protected abstract double speedFactor();
 
     protected void incrementSpeed(double amount) {
+        if (currentSpeed < 0 || currentSpeed > enginePower){ throw new IllegalArgumentException("Current speed cannot be less than 0 or higher than engine power");}
         currentSpeed = getCurrentSpeed() + speedFactor() * amount;
     }
 
     protected void decrementSpeed(double amount) {
+        if (currentSpeed < 0 || currentSpeed > enginePower){ throw new IllegalArgumentException("Current speed cannot be less than 0 or higher than engine power");}
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
 
@@ -94,16 +97,25 @@ public abstract class Car implements Movable {
         }
     }
 
-    // TODO turnLeft() and turnRight() and the things listed bellow
+    @Override
+    public void turnLeft(){
+      direction = Direction.values()[(direction.ordinal() + 3) % 4];
+    }
 
+    @Override
+    public void turnRight() {
+        direction = Direction.values()[(direction.ordinal() + 1) % 4];
+    }
 
     // TODO fix this method according to assignment pm
     public void gas(double amount) {
+        if (amount < 0 || amount > 1){ throw new IllegalArgumentException("Amounts cannot be less than 0 or more than 1");}
         incrementSpeed(amount);
     }
 
     // TODO fix this method according to assignment pm
     public void brake(double amount) {
+        if (amount < 0 || amount > 1){ throw new IllegalArgumentException("Amounts cannot be less than 0 or more than 1");}
         decrementSpeed(amount);
     }
 }
