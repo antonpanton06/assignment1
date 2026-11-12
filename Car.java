@@ -73,14 +73,12 @@ public abstract class Car implements Movable {
 
     protected abstract double speedFactor();
 
-    protected void incrementSpeed(double amount) {
-        if (currentSpeed < 0 || currentSpeed > enginePower){ throw new IllegalArgumentException("Current speed cannot be less than 0 or higher than engine power");}
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+    private void incrementSpeed(double amount) {
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
     }
 
-    protected void decrementSpeed(double amount) {
-        if (currentSpeed < 0 || currentSpeed > enginePower){ throw new IllegalArgumentException("Current speed cannot be less than 0 or higher than engine power");}
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+    private void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 
     public double getX() { return x; }
