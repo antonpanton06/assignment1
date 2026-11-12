@@ -11,13 +11,22 @@ you might end up copying methods and attributes from existing classes.
 With the new structure, you can simply create another subclass such as BMW for example.
  */
 
-public abstract class Car {
+public abstract class Car implements Movable {
+
+    // The direction the car is facing, in order of clockwise
+    public enum Direction {NORTH, EAST, SOUTH, WEST}
+
     // The shared attributes of a car:
     private final int nrDoors; // Number of doors on the car
-    private final double enginePower; // Engine power of the car
+    protected final double enginePower; // Engine power of the car
     private double currentSpeed; // The current speed of the car, not final because we want to be able to change value
     private Color color; // Color of the car, not final because we want to be able to change value
     private final String modelName; // The car model name
+
+    // Start values for the positioning of the car
+    private double x = 0;
+    private double y = 0;
+    private Direction direction = Direction.NORTH;
 
     // Conductor:
     public Car(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName){
@@ -61,7 +70,7 @@ public abstract class Car {
         currentSpeed = 0;
     }
 
-    protected double speedFactor() { return getCurrentSpeed();}
+    protected abstract double speedFactor();
 
     protected void incrementSpeed(double amount) {
         currentSpeed = getCurrentSpeed() + speedFactor() * amount;
@@ -70,6 +79,23 @@ public abstract class Car {
     protected void decrementSpeed(double amount) {
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
+
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public Direction getDirection() { return direction; }
+
+    @Override
+    public void move(){
+        switch (direction) {
+            case NORTH -> y += currentSpeed;
+            case SOUTH -> y -= currentSpeed;
+            case EAST -> x += currentSpeed;
+            case WEST -> x -= currentSpeed;
+        }
+    }
+
+    // TODO turnLeft() and turnRight() and the things listed bellow
+
 
     // TODO fix this method according to assignment pm
     public void gas(double amount) {
