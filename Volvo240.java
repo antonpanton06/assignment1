@@ -14,12 +14,12 @@ public class Volvo240 extends Car {
         this.trimFactor = 1.25;
     }
 
-    public double getTrimFactor() {
+    private double getTrimFactor() {
         return trimFactor;
     }
 
     @Override
-    public double speedFactor() {
-        return enginePower * 0.01 * trimFactor;
+    protected double speedFactor() {
+        return getEnginePower() * 0.01 * trimFactor;
     }
 }

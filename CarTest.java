@@ -22,8 +22,13 @@ public class CarTest {
         Volvo240 volvo = new Volvo240();
         volvo.startEngine();
         volvo.move();
-        boolean result = volvo.getY() == 0.1 && volvo.getX() == 0;
-        reportResult("Car facing north moves along y by its speed", result);
+        boolean result1 = volvo.getY() == volvo.getCurrentSpeed() && volvo.getX() == 0;
+        reportResult("Car facing north moves along y by its speed", result1);
+        volvo.turnRight();
+        volvo.move();
+        boolean result2 = volvo.getY() == 0.1 && volvo.getX() == volvo.getCurrentSpeed();
+        reportResult("Car facing east and moved along x by its speed", result2);
+
     }
 
     /** Tests that gas() and brake() only accept values in 0, 1. */

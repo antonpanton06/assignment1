@@ -19,7 +19,7 @@ public abstract class Car implements Movable {
 
     // The shared attributes of a car:
     private final int nrDoors; // Number of doors on the car
-    protected final double enginePower; // Engine power of the car
+    private final double enginePower; // Engine power of the car
     private double currentSpeed; // The current speed of the car, not final because we want to be able to change value
     private Color color; // Color of the car, not final because we want to be able to change value
     private final String modelName; // The car model name
@@ -29,7 +29,7 @@ public abstract class Car implements Movable {
     private double y = 0;
     private Direction direction = Direction.NORTH;
 
-    // Conductor:
+    // Constructor:
     public Car(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName){
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
@@ -105,13 +105,11 @@ public abstract class Car implements Movable {
         direction = Direction.values()[(direction.ordinal() + 1) % 4];
     }
 
-    // TODO fix this method according to assignment pm
     public void gas(double amount) {
         if (amount < 0 || amount > 1){ throw new IllegalArgumentException("Amounts cannot be less than 0 or more than 1");}
         incrementSpeed(amount);
     }
 
-    // TODO fix this method according to assignment pm
     public void brake(double amount) {
         if (amount < 0 || amount > 1){ throw new IllegalArgumentException("Amounts cannot be less than 0 or more than 1");}
         decrementSpeed(amount);
